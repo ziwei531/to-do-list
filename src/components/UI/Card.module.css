@@ -1,0 +1,10 @@
+/* generate a card that can blend perfectly in dark mode*/
+
+.card {
+	background-color: #1e1e1e;
+	border-radius: 5px;
+	box-shadow: 0 2px 8px rgba(255, 255, 255, 0.26);
+	margin: 2rem auto;
+	width: 90%;
+	max-width: 40rem;
+}

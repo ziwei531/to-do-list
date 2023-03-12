@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import Title from "./components/Title/Title";
+import Input from "./components/Input/Input";
+import TaskArea from "./components/TaskArea/Tasks";
+import React from "react";
+import { useState } from "react";
+
+//using this as placeholder before switching to mongodb
+let tasks = [];
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [allTasks, setAllTasks] = useState(tasks);
+
+	const handleAddTask = (addedTask) => {
+		console.log(`Task to be added: ${addedTask}`);
+		setAllTasks((prevTasks) => {
+			return [addedTask, ...prevTasks];
+		});
+	};
+	// <Title /> <-- title here
+	// <Input Area /> <-- inputting here
+	// <Tasks Area/> <-- displaying of the tasks here
+	return (
+		<>
+			<Title />
+			<Input onAddTask={handleAddTask} />
+			<TaskArea tasks={allTasks} />
+		</>
+	);
 }
 
 export default App;
