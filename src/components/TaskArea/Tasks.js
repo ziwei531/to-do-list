@@ -17,19 +17,19 @@ function Tasks(props) {
 						</p>
 					</Container>
 				) : (
-					props.tasks.map((task) => (
-						<div key={task} className={styles["task-container"]}>
+					props.tasks.map((task, index) => (
+						<div key={index} className={styles["task-container"]}>
 							<li className={styles["task-desc"]}>{task}</li>
 							<div className="task-btns">
 								<button
 									className={`${styles["edit-btn"]} ${styles.btn}`}
-									onClick={props.onEditTasks}
+									onClick={() => props.onMode("edit", index)}
 								>
 									Edit Task
 								</button>
 								<button
 									className={`${styles["delete-btn"]} ${styles.btn}`}
-									onClick={props.onClearTasks}
+									onClick={() => props.onMode("delete", index)}
 								>
 									Delete Task
 								</button>
