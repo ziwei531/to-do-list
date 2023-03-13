@@ -32,23 +32,31 @@ function Modal(props) {
 		<div className={styles.modal}>
 			<div className={styles["modal-content"]}>
 				{props.mode === "edit" ? (
-					<div className={styles["btn-container"]}>
+					<div className={styles["edit-container"]}>
 						<p>Edit your item here</p>
 						<input
+							className={styles["input-field"]}
 							type="text"
-							// name={props.originalText}
 							value={editedText}
 							onChange={handleChange}
+							onKeyPress={(event) => {
+								if (event.key === "Enter") {
+									props.onEdit(taskID, editedText);
+								}
+							}}
 						/>
-						<button style={editColor} onClick={() => props.onSave(taskID)}>
-							Save
+						<button
+							style={editColor}
+							onClick={() => props.onEdit(taskID, editedText)}
+						>
+							Edit
 						</button>
 						<button onClick={props.onCancel} className={styles.cancel}>
 							Cancel
 						</button>
 					</div>
 				) : (
-					<div className={styles["btn-container"]}>
+					<div className={styles["delete-container"]}>
 						{props.tasks.map((task, index) => {
 							if (index === taskID) {
 								return <p>{`Are you sure you want to delete "${task}"?`}</p>;

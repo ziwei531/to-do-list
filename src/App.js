@@ -41,13 +41,22 @@ function App() {
 
 	//handle editTask
 	const handleEditTask = (task, newText) => {
+		console.log(`Task to be edited: ${allTasks[task]}`);
 		if (task === null || task === undefined || task === "") {
 			return;
 		}
 
-		console.log(`Task edited: ${task} -> ${newText}`);
+		console.log(`New Text -> ${newText}`);
 		setAllTasks((prevTasks) => {
-			return prevTasks.map((t) => (t === task ? newText : t));
+			return prevTasks.map((t, index) => {
+				if (index === task) {
+					setIsModalOpen(false);
+					return newText;
+				} else {
+					setIsModalOpen(false);
+					return t;
+				}
+			});
 		});
 	};
 
@@ -77,7 +86,7 @@ function App() {
 				<Modal
 					mode={mode}
 					onDelete={handleDeleteTask}
-					onSave={handleEditTask}
+					onEdit={handleEditTask}
 					taskID={id}
 					onCancel={() => {
 						setIsModalOpen(false);

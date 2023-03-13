@@ -32,6 +32,7 @@ function Input(props) {
 				<div className={styles.container}>
 					<input
 						type="text"
+						className={styles["input-field"]}
 						placeholder="Enter a task"
 						required
 						value={enteredValue}

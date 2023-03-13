@@ -9,7 +9,7 @@ form {
 	flex-direction: row;
 }
 
-input {
+.input-field {
 	background-color: #2b2b2b;
 	border: none;
 	border-radius: 4px;
@@ -23,14 +23,14 @@ input {
 	transition: all 0.2s ease-in-out;
 }
 
-input:focus {
+.input-field:focus {
 	outline: none;
 	box-shadow: 0 0 5px rgba(241, 107, 136, 0.3),
 		0 0 10px rgba(241, 107, 136, 0.2), 0 0 15px rgba(241, 107, 136, 0.1),
 		0 0 20px rgba(241, 107, 136, 0.1), 0 0 35px rgba(241, 107, 136, 0.1);
 }
 
-input::placeholder {
+.input-field::placeholder {
 	color: #ffffff;
 	opacity: 0.5;
 }
