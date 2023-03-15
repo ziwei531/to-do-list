@@ -91,3 +91,22 @@
 	align-items: center;
 	justify-content: space-between;
 }
+
+@media screen and (max-width: 768px) {
+	.task-container {
+		flex-direction: column;
+		padding: 5%;
+	}
+	.task {
+		padding: 3%;
+	}
+	.task-desc {
+		font-size: 1.2rem;
+	}
+	.btn {
+		font-size: 1.2rem;
+	}
+	.header {
+		font-size: 1.2rem;
+	}
+}

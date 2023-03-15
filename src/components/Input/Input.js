@@ -29,7 +29,7 @@ function Input(props) {
 	return (
 		<>
 			<form autoComplete="off" onSubmit={formSubmitHandler}>
-				<div className={styles.container}>
+				<div className={styles.container + styles["container-input"]}>
 					<input
 						type="text"
 						className={styles["input-field"]}

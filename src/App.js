@@ -2,62 +2,109 @@ import Title from "./components/Title/Title";
 import Input from "./components/Input/Input";
 import TaskArea from "./components/TaskArea/Tasks";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "./components/UI/Modal";
 
 //using this as placeholder before switching to mongodb
 // let tasks = ["task 1", "task 2", "task 3"];
-let tasks = [];
+//let tasks = [];
 
 function App() {
-	const [allTasks, setAllTasks] = useState(tasks);
+	const [allTasks, setAllTasks] = useState([]);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [mode, setMode] = useState("");
-	const [id, setID] = useState(0);
+	const [id, setID] = useState("");
 
-	console.log(isModalOpen);
+	useEffect(() => {
+		fetch("/api/tasks")
+			.then((res) => res.json())
+			.then((task) => setAllTasks(task));
+	}, [allTasks]);
 
 	//handle addTask
 	const handleAddTask = (addedTask) => {
 		console.log(`Task to be added: ${addedTask}`);
+
+		fetch("/api/tasks", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ task: addedTask }),
+		})
+			.then((res) => res.json())
+			.catch((err) => console.log("Error adding task: ", err));
+
 		setAllTasks((prevTasks) => {
-			return [addedTask, ...prevTasks];
+			const newTasks = [addedTask, ...prevTasks];
+			return newTasks;
 		});
 	};
 
 	//handle deleteTask
 	const handleDeleteTask = (task) => {
-		console.log(`Task to be deleted: ${allTasks[task]}`);
+		console.log(`Task to be deleted: ${task}`);
 		if (task === null || task === undefined || task === "") {
 			setIsModalOpen(false);
 			return;
 		}
 
-		setAllTasks((prevTasks) => {
-			setIsModalOpen(false);
-			setAllTasks(allTasks.filter((t) => t !== allTasks[task]));
-		});
+		fetch(`/api/tasks/${task}`, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ _id: task }),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log("Data's ID that is to be deleted: ", data);
+				setAllTasks((prevTasks) => {
+					setIsModalOpen(false);
+					setAllTasks(prevTasks.filter((t) => t !== task));
+					// setAllTasks(allTasks.filter((t) => t !== allTasks[task]));
+				});
+			})
+			.then(() => console.log(`${JSON.stringify(allTasks)}`))
+			.catch((err) => console.log("Error deleting task: ", err));
 	};
 
 	//handle editTask
-	const handleEditTask = (task, newText) => {
-		console.log(`Task to be edited: ${allTasks[task]}`);
+	const handleEditTask = (task, newTask) => {
+		console.log(`Task to be edited: ${task}`);
 		if (task === null || task === undefined || task === "") {
 			return;
 		}
 
-		console.log(`New Text -> ${newText}`);
-		setAllTasks((prevTasks) => {
-			return prevTasks.map((t, index) => {
-				if (index === task) {
-					setIsModalOpen(false);
-					return newText;
+		console.log(`New Text -> ${newTask}`);
+		fetch(`/api/tasks/${task}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ task: newTask }),
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Error in updating new task");
 				} else {
 					setIsModalOpen(false);
-					return t;
+					return response.json();
 				}
-			});
-		});
+			})
+			.catch((err) => console.log("Error editing task: ", err));
+
+		// setAllTasks((prevTasks) => {
+		// 	return prevTasks.map((t, index) => {
+		// 		if (index === task) {
+		// 			setIsModalOpen(false);
+		// 			return newText;
+		// 		} else {
+		// 			setIsModalOpen(false);
+		// 			return t;
+		// 		}
+		// 	});
+		// });
 	};
 
 	//handle mode
@@ -70,7 +117,7 @@ function App() {
 
 		if (mode === "delete") {
 			setMode("delete");
-			console.log(`Task to be deleted: ${id}`);
+			console.log(`Within App.js, Task to be deleted: ${id}`);
 			setID(id);
 			setIsModalOpen(true);
 		} else {

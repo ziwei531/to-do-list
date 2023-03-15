@@ -9,6 +9,20 @@ form {
 	flex-direction: row;
 }
 
+/* Borderless gradient palevioetetred Button */
+.input-btn {
+	background: linear-gradient(to right, palevioletred, red);
+	border: none;
+	color: transparent;
+	padding: 10px 20px;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
+	-webkit-background-clip: text;
+	background-clip: text;
+}
+
 .input-field {
 	background-color: #2b2b2b;
 	border: none;
@@ -48,7 +62,7 @@ form {
 		align-items: center;
 	}
 
-	button {
+	.input-btn {
 		margin-top: 20px;
 	}
 
@@ -60,23 +74,29 @@ form {
 }
 
 @media (max-width: 768px) {
-	input {
-		width: 100%;
+	form {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.input-field {
+		width: 300px;
+	}
+
+	.input-btn {
+		display: inline-block;
+		font-size: 1.4rem;
+		border: #ff0606;
+		margin-bottom: 25px;
 	}
 }
 
-/* Borderless gradient palevioetetred Button */
-.input-btn {
-	background: linear-gradient(to right, palevioletred, red);
-	border: none;
-	color: transparent;
-	padding: 10px 20px;
-	font-size: 16px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: background-color 0.2s ease-in-out;
-	-webkit-background-clip: text;
-	background-clip: text;
+@media (max-width: 768px) {
+	input {
+		width: 100%;
+	}
 }
 
 .input-btn:hover {

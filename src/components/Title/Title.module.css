@@ -7,3 +7,10 @@
 		0 0 10px rgba(241, 107, 136, 0.2), 0 0 15px rgba(241, 107, 136, 0.1),
 		0 0 20px rgba(241, 107, 136, 0.1), 0 0 35px rgba(241, 107, 136, 0.1);
 }
+
+@media (max-width: 768px) {
+	.title {
+		font-size: 2rem;
+		padding-top: 3%;
+	}
+}

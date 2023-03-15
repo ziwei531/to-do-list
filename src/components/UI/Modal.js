@@ -4,7 +4,11 @@ import { useState, useEffect } from "react";
 
 function Modal(props) {
 	const [editedText, setEditedText] = useState("");
-	let taskID = props.taskID;
+	const [taskID, setTaskID] = useState("");
+
+	useEffect(() => {
+		setTaskID(props.taskID);
+	}, [props.taskID]);
 
 	const handleChange = (e) => {
 		setEditedText(e.target.value);
@@ -34,12 +38,12 @@ function Modal(props) {
 				{props.mode === "edit" ? (
 					<div className={styles["edit-container"]}>
 						<p>Edit your item here</p>
-						<input
+						<textarea
 							className={styles["input-field"]}
 							type="text"
 							value={editedText}
 							onChange={handleChange}
-							onKeyPress={(event) => {
+							onKeyDown={(event) => {
 								if (event.key === "Enter") {
 									props.onEdit(taskID, editedText);
 								}
@@ -57,9 +61,13 @@ function Modal(props) {
 					</div>
 				) : (
 					<div className={styles["delete-container"]}>
-						{props.tasks.map((task, index) => {
-							if (index === taskID) {
-								return <p>{`Are you sure you want to delete "${task}"?`}</p>;
+						{props.tasks.map((task) => {
+							if (task._id === taskID) {
+								return (
+									<div key={task._id}>
+										<p>{`Are you sure you want to delete "${task.task}"?`}</p>
+									</div>
+								);
 							}
 						})}
 
