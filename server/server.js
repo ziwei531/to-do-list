@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-// import path from "path";
+import path from "path";
 import mongoose from "mongoose";
 import { router as taskRoutes } from "./routes/tasks.js";
 import { createProxyMiddleware } from "http-proxy-middleware";
@@ -42,6 +42,19 @@ app.use("/api/tasks", taskRoutes);
 // 	}),
 // 	taskRoutes
 // );
+
+// Serve Frontend
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.join(__dirname, "../build")));
+
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "../", "build", "index.html"));
+	});
+} else {
+	app.get("/", (res, req) => {
+		res.send("Not in production.");
+	});
+}
 
 let port = process.env.PORT || 5000;
 connectToDB().then(() =>
