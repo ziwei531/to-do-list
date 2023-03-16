@@ -16,13 +16,17 @@ function App() {
 	const [id, setID] = useState("");
 
 	useEffect(() => {
-		fetch("https://sore-jade-spider-sock.cyclic.app/api/tasks")
-			.then((res) => res.json())
-			.then((data) => {
-				setAllTasks(data);
-			})
-			.catch((err) => console.log("Error fetching data: ", err));
-	}, [allTasks]);
+		const timer = setTimeout(() => {
+			fetch("https://sore-jade-spider-sock.cyclic.app/api/tasks")
+				.then((res) => res.json())
+				.then((data) => {
+					setAllTasks(data);
+				})
+				.catch((err) => console.log("Error fetching data: ", err));
+		}, 500); // delay the API call by 500ms
+
+		return () => clearTimeout(timer); // clear the timer on unmount
+	}, [allTasks]); // pass allTasks as a dependency
 
 	//handle addTask
 	const handleAddTask = (addedTask) => {
