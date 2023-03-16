@@ -15,6 +15,17 @@ function App() {
 	const [mode, setMode] = useState("");
 	const [id, setID] = useState("");
 
+	//first mount
+	useEffect(() => {
+		fetch("https://sore-jade-spider-sock.cyclic.app/api/tasks")
+			.then((res) => res.json())
+			.then((data) => {
+				setAllTasks(data);
+			})
+			.catch((err) => console.log("Error fetching data: ", err));
+	}, []);
+
+	//check api every 500ms
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			fetch("https://sore-jade-spider-sock.cyclic.app/api/tasks")
