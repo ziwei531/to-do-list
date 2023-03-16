@@ -2,10 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 import path from "path";
 import mongoose from "mongoose";
+import { fileURLToPath } from "url";
 import { router as taskRoutes } from "./routes/tasks.js";
 import { createProxyMiddleware } from "http-proxy-middleware";
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 app.use(express.urlencoded({ extended: false }));
@@ -16,6 +19,7 @@ app.use(express.json());
 const connectToDB = async () => {
 	try {
 		//connection to mongodb
+		console.log(process.env.MONGO_URI);
 		const c = await mongoose.connect(process.env.MONGO_URI);
 		console.log(`Successfully connected to ${mongoose.connection.host}`);
 	} catch (err) {
