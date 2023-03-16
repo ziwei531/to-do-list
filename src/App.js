@@ -16,16 +16,19 @@ function App() {
 	const [id, setID] = useState("");
 
 	useEffect(() => {
-		fetch("/api/tasks")
+		fetch("https://sore-jade-spider-sock.cyclic.app/api/tasks")
 			.then((res) => res.json())
-			.then((task) => setAllTasks(task));
+			.then((data) => {
+				setAllTasks(data);
+			})
+			.catch((err) => console.log("Error fetching data: ", err));
 	}, [allTasks]);
 
 	//handle addTask
 	const handleAddTask = (addedTask) => {
 		console.log(`Task to be added: ${addedTask}`);
 
-		fetch("/api/tasks", {
+		fetch("https://sore-jade-spider-sock.cyclic.app/api/tasks", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -49,7 +52,7 @@ function App() {
 			return;
 		}
 
-		fetch(`/api/tasks/${task}`, {
+		fetch(`https://sore-jade-spider-sock.cyclic.app/api/tasks/${task}`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
@@ -77,7 +80,7 @@ function App() {
 		}
 
 		console.log(`New Text -> ${newTask}`);
-		fetch(`/api/tasks/${task}`, {
+		fetch(`https://sore-jade-spider-sock.cyclic.app/api/tasks/${task}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",

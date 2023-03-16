@@ -1,9 +1,9 @@
 # get all tasks
-GET http://localhost:3000/api/tasks
+GET https://fair-gray-gharial-ring.cyclic.app/api/tasks
 
 ###
 
-POST http://localhost:3000/api/tasks
+POST https://fair-gray-gharial-ring.cyclic.app/api/tasks
 Content-Type: application/json
 
 {
