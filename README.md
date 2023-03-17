@@ -1,9 +1,8 @@
 # to-do-list
 
 A to do list application that demonstrates my knowledge on React and connecting it to a backend (MongoDB) through API calls. API is deployed [here](https://github.com/ziwei531/rest-to-do-list)
-# Initial stage
 
-Key Things I've learned
+# Key Things I've learned
 
 -   I learned how to create a React app with a backend by installing the necessary packages for both the frontend and backend separately. (Made a mistake by initially assuming they're together in one repository)
 -   I learned how to fetch APIs and create my own API, as well as how to handle CRUD operations for both the frontend and backend.
