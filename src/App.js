@@ -14,13 +14,16 @@ function App() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [mode, setMode] = useState("");
 	const [id, setID] = useState("");
+	const [loading, setLoading] = useState(true);
 
 	//first mount
 	useEffect(() => {
 		fetch("https://sore-jade-spider-sock.cyclic.app/api/tasks")
 			.then((res) => res.json())
 			.then((data) => {
+				console.log("Data is loading...");
 				setAllTasks(data);
+				setLoading(false);
 			})
 			.catch((err) => console.log("Error fetching data: ", err));
 	}, []);
@@ -111,18 +114,6 @@ function App() {
 				}
 			})
 			.catch((err) => console.log("Error editing task: ", err));
-
-		// setAllTasks((prevTasks) => {
-		// 	return prevTasks.map((t, index) => {
-		// 		if (index === task) {
-		// 			setIsModalOpen(false);
-		// 			return newText;
-		// 		} else {
-		// 			setIsModalOpen(false);
-		// 			return t;
-		// 		}
-		// 	});
-		// });
 	};
 
 	//handle mode
@@ -161,7 +152,7 @@ function App() {
 			)}
 			<Title />
 			<Input onAddTask={handleAddTask} />
-			<TaskArea tasks={allTasks} onMode={handleMode} />
+			<TaskArea isLoading={loading} tasks={allTasks} onMode={handleMode} />
 		</>
 	);
 }
