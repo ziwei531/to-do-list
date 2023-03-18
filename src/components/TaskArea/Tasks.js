@@ -12,11 +12,11 @@ function Tasks(props) {
 			<ul className={styles.task}>
 				{props.loading === true ? (
 					<Container>
-						<p className={styles["loading"]}>Data is loading...</p>
+						<p className={styles["empty-loading-tasks"]}>Data is loading...</p>
 					</Container>
 				) : props.tasks.length === 0 ? (
 					<Container>
-						<p className={styles["empty-tasks"]}>
+						<p className={styles["empty-loading-tasks"]}>
 							No available task data. Start adding your tasks now :)
 						</p>
 					</Container>
