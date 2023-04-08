@@ -10,7 +10,7 @@ function Tasks(props) {
 			</div>
 
 			<ul className={styles.task}>
-				{props.loading === true ? (
+				{props.isLoading === true ? (
 					<Container>
 						<p className={styles["empty-loading-tasks"]}>Data is loading...</p>
 					</Container>
